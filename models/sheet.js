@@ -1,8 +1,8 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-// create user Schema
-const UserSchema = new Schema({
+// create sheet Schema
+const SheetSchema = new Schema({
     name: {
         type: String,
         required: [true, 'Name field is required'],
@@ -15,7 +15,7 @@ const UserSchema = new Schema({
 });
 
 // Create a model
-const User = mongoose.model('user', UserSchema);
+const Sheet = mongoose.model('sheet', SheetSchema);
 
-// export the 'User' mongoose model
-module.exports = User;
+// export the 'Sheet' mongoose model
+module.exports = Sheet;
