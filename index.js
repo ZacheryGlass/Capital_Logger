@@ -17,6 +17,12 @@ app.use(express.json());
 // initialize api routes
 app.use('/api', require('./routes/api'));
 
+// error handling middleware
+app.use((err, req, res, next) => {
+    console.log('zg');
+    res.status(422).send({ error: err.message });
+});
+
 // process is a global variable.
 // Use the eviroment variable if it's set, otherwise use port 3000.
 const port = process.env.PORT || 3000;
