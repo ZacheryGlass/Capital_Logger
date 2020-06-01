@@ -1,2 +1,3 @@
 # Capital_Logger
-A website built with Node js and Express js that automatically logs info from your Personal Capital account to a Google Sheets spreadsheet. 
+
+With this project, I intend to the MERN stack to build a website that will allow users to have their financial data from their PersonalCapital account automatically and routinely saved to their own personal Google Sheets Spreadsheet.
