@@ -7,10 +7,6 @@ const SheetSchema = new Schema({
         type: String,
         required: [true, 'Name field is required'],
     },
-    id: {
-        type: Number,
-        default: -1,
-    },
     // additional object properties here
 });
 
