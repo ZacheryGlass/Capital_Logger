@@ -8,7 +8,10 @@ router.get('/sheets', (req, res) => {
 });
 
 router.get('/sheet/:id', (req, res) => {
-    res.send({ type: 'GET' });
+    Sheet.findOne({ _id: req.params.id }).then((sheet) => {
+        console.log('Retrieved object from database', sheet);
+        res.send(sheet);
+    });
 });
 
 // add sheets to database

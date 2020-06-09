@@ -1,5 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
+//const passport = require('passport');
 
 // set up express app.
 const app = express();
@@ -10,12 +11,25 @@ mongoose.connect('mongodb://localhost/capital_logger', {
 });
 // mongoose.Promise = global.Promise; // deprecated
 
+// app.use(express.static('public'));
+app.set('view engine', 'ejs');
+
+// create home page
+app.get('/', (req, res) => {
+    res.render('home');
+});
+
 // parses json request and attach to route handler
 // (order of app.use matters here)
 app.use(express.json());
 
-// initialize api routes
+// // initialize passport for authentication
+// app.use(passport.initialize());
+// app.use(passport.session());
+
+// initialize additional routes
 app.use('/api', require('./routes/api'));
+app.use('/auth', require('./routes/auth'));
 
 // error handling middleware
 app.use((err, req, res, next) => {
