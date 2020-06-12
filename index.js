@@ -1,6 +1,6 @@
 const express = require('express');
 const mongoose = require('mongoose');
-//const passport = require('passport');
+const passportSetup = require('./config/passport_setup');
 
 // set up express app.
 const app = express();
