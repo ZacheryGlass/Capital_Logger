@@ -1,14 +1,21 @@
 const express = require('express');
 const mongoose = require('mongoose');
 const passportSetup = require('./config/passport_setup');
+const keys = require('./config/keys');
 
 // set up express app.
 const app = express();
 
-mongoose.connect('mongodb://localhost/capital_logger', {
-    useUnifiedTopology: true,
-    useNewUrlParser: true,
-});
+mongoose.connect(
+    keys.mongodb.dbURI,
+    {
+        useUnifiedTopology: true,
+        useNewUrlParser: true,
+    },
+    () => {
+        console.log('connected to mongodb');
+    }
+);
 // mongoose.Promise = global.Promise; // deprecated
 
 // app.use(express.static('public'));
