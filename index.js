@@ -21,6 +21,8 @@ mongoose.connect(
 // app.use(express.static('public'));
 app.set('view engine', 'ejs');
 
+app.use(express.static(__dirname + '/styles'));
+
 // create home page
 app.get('/', (req, res) => {
     res.render('home');
@@ -29,10 +31,6 @@ app.get('/', (req, res) => {
 // parses json request and attach to route handler
 // (order of app.use matters here)
 app.use(express.json());
-
-// // initialize passport for authentication
-// app.use(passport.initialize());
-// app.use(passport.session());
 
 // initialize additional routes
 app.use('/api', require('./routes/api'));

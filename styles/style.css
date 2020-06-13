@@ -1,0 +1,39 @@
+.google-btn {
+    color: #fff;
+    text-decoration: none;
+    font-size: 18px;
+    padding: 10px;
+    background: #ff5353;
+}
+
+main,
+header {
+    max-width: 960px;
+    margin: 30px auto;
+}
+body {
+    font-family: arial;
+    margin: 0;
+}
+nav {
+    background: #53ddff;
+    padding: 30px 20px;
+}
+nav ul {
+    max-width: 960px;
+    margin: 0 auto;
+    padding: 0;
+}
+nav li {
+    list-style-type: none;
+    display: inline-block;
+    margin: 0 10px 0 0;
+}
+nav a {
+    color: rgb(255, 255, 255);
+    font-size: 18px;
+    background: rgb(110, 107, 255);
+    text-decoration: none;
+    padding: 10px;
+    display: block;
+}
