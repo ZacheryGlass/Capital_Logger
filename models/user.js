@@ -1,5 +1,6 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
+const findOrCreate = require('mongoose-find-or-create');
 
 // create User Schema
 const UserSchema = new Schema({
@@ -7,7 +8,7 @@ const UserSchema = new Schema({
         type: String,
         required: [true, 'googleID field is required'],
     },
-    username: {
+    name: {
         type: String,
         required: [true, 'Name field is required'],
     },
@@ -16,6 +17,8 @@ const UserSchema = new Schema({
         required: [true, 'Email field is required'],
     },
 });
+
+UserSchema.plugin(findOrCreate);
 
 // Create a model
 const User = mongoose.model('User', UserSchema);

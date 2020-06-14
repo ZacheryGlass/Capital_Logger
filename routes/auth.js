@@ -17,15 +17,22 @@ router.get('/logout', (req, res) => {
 router.get(
     '/google',
     passport.authenticate('google', {
-        scope: ['profile'],
+        scope: [
+            'profile',
+            'email',
+            'https://www.googleapis.com/auth/spreadsheets',
+        ],
     })
 );
 
-// when you hit the redirect, you will execture the following 2 functions
-// First is a passort function, which triggers the callback function that is set
-// as part of your GoogleStrategy. Finally, the arrow function below will execute
+// when you hit the redirect, you will excecure the following 2 functions
+// First is a passort function, which triggers the callback function that
+// is set as part of your GoogleStrategy,serializes user, sends cookie, etc.
+// Finally, the arrow function below will execute, with the user attached
+// to the 'req' object
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-    res.send('callback URI');
+    console.log('Use is logged in: ' + req.user.name);
+    res.redirect('/');
 });
 
 module.exports = router;
