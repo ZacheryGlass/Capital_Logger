@@ -40,7 +40,7 @@ app.use(express.static(__dirname + '/styles'));
 
 // create home page
 app.get('/', authCheck, (req, res) => {
-    res.render('home');
+    res.render('home', { user: req.user });
 });
 
 // parses json request and attach to route handler
