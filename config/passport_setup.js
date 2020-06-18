@@ -28,26 +28,25 @@ passport.use(
         {
             //options for the google strategy
             callbackURL: '/auth/google/redirect',
-            clientID: keys.google.clientID,
-            clientSecret: keys.google.clientSecret,
+            clientID: keys.google_signin.clientID,
+            clientSecret: keys.google_signin.clientSecret,
         },
         (accessToken, refreshToken, googleProfile, done) => {
             // GoogleStrategy callback function
             // this functon executes after the user has signed in on the Google consent screen
             console.log('Profile retrieved from Google: ');
-            console.log('googleId: ' + googleProfile.id);
-            console.log('email: ' + googleProfile.emails.value);
-            console.log('name: ' + googleProfile.displayName);
+            console.log(googleProfile);
 
             User.findOrCreate(
                 {
                     googleID: googleProfile.id,
                     email: googleProfile.emails[0].value,
                     name: googleProfile.displayName,
+                    accessToken: accessToken,
                 },
                 (err, user) => {
                     // my new or existing model is loaded as result
-                    console.log('DB User: ' + user);
+                    // console.log('DB User: ' + user);
 
                     // call done to move onto next step: serializeUser
                     done(err, user);

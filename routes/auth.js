@@ -32,7 +32,7 @@ router.get(
 // Finally, the arrow function below will execute, with the user attached
 // to the 'req' object
 router.get('/google/redirect', passport.authenticate('google'), (req, res) => {
-    console.log('Use is logged in: ' + req.user.name);
+    console.log('User has logged in: ' + req.user.name);
     res.redirect('/');
 });
 

@@ -16,6 +16,9 @@ const UserSchema = new Schema({
         type: String,
         required: [true, 'Email field is required'],
     },
+    accessToken: {
+        type: String,
+    },
 });
 
 UserSchema.plugin(findOrCreate);

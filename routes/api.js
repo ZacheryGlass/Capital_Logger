@@ -1,11 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const Sheet = require('../models/sheet');
-
-// get list of sheets from database
-router.get('/sheets', (req, res) => {
-    res.send({ type: 'GET' });
-});
+const keys = require('../config/keys');
 
 router.get('/sheet/:id', (req, res) => {
     Sheet.findOne({ _id: req.params.id }).then((sheet) => {
@@ -15,11 +11,25 @@ router.get('/sheet/:id', (req, res) => {
 });
 
 // add sheets to database
-router.post('/sheets', (req, res, next) => {
-    Sheet.create(req.body)
+router.post('/sheet', (req, res, next) => {
+    const { google } = require('googleapis');
+    const sheets = google.sheets('v4');
+
+    const request = {
+        resource: {
+            properties: {
+                title: 'New Sheet',
+            },
+        },
+        access_token: req.user.accessToken,
+    };
+
+    sheets.spreadsheets
+        .create(request)
         // on sucessful validation of the user-specified json, add to db
         .then((sheetData) => {
-            console.log('Added object to database', sheetData);
+            console.log('New Sheet Created');
+            // add sheet to DB here (sheetData)
             res.send(sheetData);
         })
         // on unsucessful validation of the user-specified json, call next piece of middleware in index.js

@@ -43,6 +43,12 @@ app.get('/', authCheck, (req, res) => {
     res.render('home', { user: req.user });
 });
 
+// test
+app.get('/test', (req, res) => {
+    require('./create_sheet2');
+    res.send('test');
+});
+
 // parses json request and attach to route handler
 // (order of app.use matters here)
 app.use(express.json());

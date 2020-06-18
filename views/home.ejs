@@ -21,7 +21,35 @@
             <h1>Capital Logger</h1>
         </header>
         <main>
+            <% if (user) { %>
             <p>Logged in as <%= user.name %></p>
+            <button id="post-btn">Create New Sheet</button>
+            <script>
+
+                const button = document.getElementById('post-btn');
+                console.log('post-btn: ', button);
+
+                button.addEventListener('click', async (_) => {
+                    try {
+                        console.log('fetching');
+                        const response = await fetch('/api/sheet', {
+                            method: 'post',
+                            body: {
+                                // authToken: authToken,
+                            },
+                        });
+                        console.log(
+                            'A post request to send create a sheet has been sent! Response is: ',
+                            response
+                        );
+                    } catch (err) {
+                        console.error(`Error creating sheet: ${err}`);
+                    }
+                });
+            </script>
+            <% } else { %>
+            <p>Access Denied. Please Login.</p>
+            <% } %>
         </main>
     </body>
 </html>
