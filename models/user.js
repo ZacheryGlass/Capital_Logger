@@ -1,12 +1,11 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
-const findOrCreate = require('mongoose-find-or-create');
 
 // create User Schema
 const UserSchema = new Schema({
-    googleID: {
+    googleId: {
         type: String,
-        required: [true, 'googleID field is required'],
+        required: [true, 'googleId field is required'],
     },
     name: {
         type: String,
@@ -18,10 +17,9 @@ const UserSchema = new Schema({
     },
     accessToken: {
         type: String,
+        required: [true, 'accessToken field is required'],
     },
 });
-
-UserSchema.plugin(findOrCreate);
 
 // Create a model
 const User = mongoose.model('User', UserSchema);
