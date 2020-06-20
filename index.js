@@ -22,6 +22,7 @@ app.use(passport.session());
 
 // app.use(express.static('public'));
 app.set('view engine', 'ejs');
+app.use(express.static(__dirname + '/styles'));
 
 // connect to db
 mongoose.connect(
@@ -34,19 +35,10 @@ mongoose.connect(
         console.log('connected to mongodb');
     }
 );
-// mongoose.Promise = global.Promise; // deprecated
-
-app.use(express.static(__dirname + '/styles'));
 
 // create home page
-app.get('/', authCheck, (req, res) => {
+app.get('/', (req, res) => {
     res.render('home', { user: req.user });
-});
-
-// test
-app.get('/test', (req, res) => {
-    require('./create_sheet2');
-    res.send('test');
 });
 
 // parses json request and attach to route handler

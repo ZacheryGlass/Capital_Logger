@@ -23,30 +23,45 @@
         <main>
             <% if (user) { %>
             <p>Logged in as <%= user.name %></p>
-            <button id="post-btn">Create New Sheet</button>
-            <script>
+            <form action="">
+                <label for="fname">Spreadsheet name:</label>
+                <input type="text" id="ssName" name="ssName" /><br /><br />
+            </form>
+            <button id="post-btn">Create New Spreadsheet</button>
 
+            <script>
                 const button = document.getElementById('post-btn');
-                console.log('post-btn: ', button);
+                const ssNameInput = document.getElementById('ssName');
 
                 button.addEventListener('click', async (_) => {
                     try {
-                        console.log('fetching');
-                        const response = await fetch('/api/sheet', {
-                            method: 'post',
-                            body: {
-                                // authToken: authToken,
-                            },
-                        });
+                        let newSSName = ssNameInput.value;
+
                         console.log(
-                            'A post request to send create a sheet has been sent! Response is: ',
-                            response
+                            'Sending request to create spreadsheet named:',
+                            newSSName
                         );
+
+                        let body = JSON.stringify({
+                            ssName: newSSName,
+                        });
+
+                        fetch('/api/sheet', {
+                            method: 'POST',
+                            headers: { 'Content-Type': 'application/json' },
+                            body: body,
+                        }).then((res) => {
+                            console.log(
+                                'A post request to create a spreadsheet has been sent! Response is: ',
+                                res
+                            );
+                        });
                     } catch (err) {
-                        console.error(`Error creating sheet: ${err}`);
+                        console.error(`Error creating spreadsheet: ${err}`);
                     }
                 });
             </script>
+
             <% } else { %>
             <p>Access Denied. Please Login.</p>
             <% } %>
