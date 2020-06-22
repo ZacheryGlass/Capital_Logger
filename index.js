@@ -5,6 +5,7 @@ const passportSetup = require('./config/passport_setup');
 const keys = require('./config/keys');
 const cookieSession = require('cookie-session');
 const authCheck = require('./config/auth_check');
+const Spreadsheet = require('./models/spreadsheet');
 
 // set up express app.
 const app = express();
@@ -38,7 +39,22 @@ mongoose.connect(
 
 // create home page
 app.get('/', (req, res) => {
-    res.render('home', { user: req.user });
+    var user = req.user;
+    if (user) {
+        Spreadsheet.find({
+            ownerGoogleId: user.googleId,
+        }).then((spreadsheets) => {
+            // console.log(spreadsheets);
+            res.render('home', {
+                user: user,
+                spreadsheets: spreadsheets,
+            });
+        });
+    } else {
+        res.render('home', {
+            user: user,
+        });
+    }
 });
 
 // parses json request and attach to route handler

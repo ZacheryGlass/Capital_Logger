@@ -5,9 +5,20 @@ const keys = require('../config/keys');
 
 router.get('/sheet/:id', (req, res) => {
     Spreadsheet.findOne({ _id: req.params.id }).then((spreadsheet) => {
-        console.log('Retrieved object from database', spreadsheet);
+        // console.log('Retrieved object from database', spreadsheet);
         res.send(spreadsheet);
     });
+});
+
+router.get('/sheets/:googleId', (req, res) => {
+    console.log('Getting sheets for user:', req.params.googleId);
+
+    Spreadsheet.find({ ownerGoogleId: req.params.googleId }).then(
+        (spreadsheets) => {
+            // console.log('Retrieved object from database', spreadsheets);
+            res.send(spreadsheets);
+        }
+    );
 });
 
 // add spreadsheet to database
@@ -38,7 +49,7 @@ router.post('/sheet', (req, res, next) => {
             })
                 .save()
                 .then((newSpreadsheet) => {
-                    console.log('Created New Spreadsheet: ', newSpreadsheet);
+                    // console.log('Created New Spreadsheet: ', newSpreadsheet);
                 });
 
             res.send(spreadsheet);

@@ -29,6 +29,14 @@
             </form>
             <button id="post-btn">Create New Spreadsheet</button>
 
+            <h2>Current Sheets</h2>
+            <% if( spreadsheets.length ) { spreadsheets.forEach(
+            function(speadsheet) { %>
+            <p><%= speadsheet.Name %></p>
+            <% }); } else { %>
+            <p>You don't have any sheets yet.</p>
+            <% } %>
+
             <script>
                 const button = document.getElementById('post-btn');
                 const ssNameInput = document.getElementById('ssName');
@@ -55,6 +63,8 @@
                                 'A post request to create a spreadsheet has been sent! Response is: ',
                                 res
                             );
+                            // reload page so new sheet will show up
+                            window.location.reload(false);
                         });
                     } catch (err) {
                         console.error(`Error creating spreadsheet: ${err}`);
@@ -63,7 +73,9 @@
             </script>
 
             <% } else { %>
+
             <p>Access Denied. Please Login.</p>
+
             <% } %>
         </main>
     </body>
